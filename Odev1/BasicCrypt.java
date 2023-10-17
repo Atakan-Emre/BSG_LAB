@@ -1,4 +1,4 @@
-public class BasicCrpt {
+public class BasicCrypt {
 
     // Şifreleme fonksiyonu
     public static String encrypt(String text) {
