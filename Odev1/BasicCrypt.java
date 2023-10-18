@@ -1,14 +1,14 @@
 package Odev1;
 
-// Kullanıcının konsol üzerinden metin girişi yapabilmesi için Scanner sınıfını ekliyoruz.
+// Kullanıcıdan metin girişi alabilmek için Scanner sınıfını dahil ediyoruz.
 import java.util.Scanner;
 
 public class BasicCrypt {
 
     // Metni şifreleyen fonksiyon.
     public static String encrypt(String text) {
-        // Şifrelenmiş metni saklayacağımız StringBuilder nesnesini oluşturuyoruz.
-        StringBuilder encryptedText = new StringBuilder();
+        // Şifrelenmiş metni saklamak için boş bir string tanımlıyoruz.
+        String encryptedText = "";
 
         // Metindeki her bir karakteri döngü ile geziyoruz.
         for (int i = 0; i < text.length(); i++) {
@@ -17,17 +17,17 @@ public class BasicCrypt {
             // Bu karakterin ASCII değerine 3 ekleyerek basit bir şifreleme gerçekleştiriyoruz.
             char encryptedChar = (char) (charAtI + 3);
             // Şifrelenmiş karakteri sonuca ekliyoruz.
-            encryptedText.append(encryptedChar);
+            encryptedText += encryptedChar;
         }
 
         // Oluşturulan şifrelenmiş metni döndürüyoruz.
-        return encryptedText.toString();
+        return encryptedText;
     }
 
     // Şifrelenmiş metni deşifre eden fonksiyon.
     public static String decrypt(String encryptedText) {
-        // Deşifre edilmiş metni saklayacağımız StringBuilder nesnesini oluşturuyoruz.
-        StringBuilder decryptedText = new StringBuilder();
+        // Deşifre edilmiş metni saklamak için boş bir string tanımlıyoruz.
+        String decryptedText = "";
 
         // Şifrelenmiş metindeki her bir karakteri döngü ile geziyoruz.
         for (int i = 0; i < encryptedText.length(); i++) {
@@ -36,27 +36,28 @@ public class BasicCrypt {
             // Bu karakterin ASCII değerinden 3 çıkararak orijinal karakteri geri alıyoruz.
             char decryptedChar = (char) (encryptedChar - 3);
             // Deşifre edilmiş karakteri sonuca ekliyoruz.
-            decryptedText.append(decryptedChar);
+            decryptedText += decryptedChar;
         }
 
         // Oluşturulan deşifre edilmiş metni döndürüyoruz.
-        return decryptedText.toString();
+        return decryptedText;
     }
 
     // Ana fonksiyon.
     public static void main(String[] args) {
         // Kullanıcıdan metin girişi alabilmek için Scanner nesnesini oluşturuyoruz.
         Scanner scanner = new Scanner(System.in);
+        // Kullanıcıya metin girmesi için bir mesaj yazdırıyoruz.
         System.out.print("Lütfen şifrelemek istediğiniz metni girin: ");
         // Kullanıcının girdiği metni okuyoruz.
         String originalText = scanner.nextLine();
 
-        // Orijinal metni şifreliyoruz.
+        // Orijinal metni şifreleyerek şifrelenmiş metni elde ediyoruz.
         String encrypted = encrypt(originalText);
-        // Şifrelenmiş metni deşifre ediyoruz.
+        // Şifrelenmiş metni deşifre ederek orijinal metni geri alıyoruz.
         String decrypted = decrypt(encrypted);
 
-        // Sonuçları ekrana yazdırıyoruz.
+        // Orijinal metni, şifrelenmiş metni ve deşifre edilmiş metni ekrana yazdırıyoruz.
         System.out.println("Orijinal Metin: " + originalText);
         System.out.println("Şifrelenmiş Metin: " + encrypted);
         System.out.println("Deşifre Edilmiş Metin: " + decrypted);
