@@ -1,8 +1,14 @@
+package Odev1;
+
+// Kullanıcıdan giriş almak için gereken sınıfı dahil ediyoruz.
+import java.util.Scanner;
+
 public class BasicCrypt {
 
     // Şifreleme fonksiyonu
     public static String encrypt(String text) {
         // Şifrelenmiş metni oluşturmak için bir StringBuilder nesnesi tanımlıyoruz.
+        // StringBuilder, metni etkili bir şekilde değiştirmek için kullanılır.
         StringBuilder encryptedText = new StringBuilder();
 
         // Orijinal metnin ilk karakterini şifrelenmiş metne doğrudan ekliyoruz.
@@ -52,8 +58,12 @@ public class BasicCrypt {
 
     // Ana fonksiyon
     public static void main(String[] args) {
-        // Orijinal metni tanımlıyoruz.
-        String originalText = "Atakan Emre";
+        // Kullanıcıdan metin girişi almak için bir Scanner nesnesi oluşturuyoruz.
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Lütfen şifrelemek istediğiniz metni girin: ");
+        // Kullanıcının girdiği metni okuyoruz.
+        String originalText = scanner.nextLine();
+
         // Orijinal metni şifreliyoruz.
         String encrypted = encrypt(originalText);
         // Şifrelenmiş metni deşifre ediyoruz.
