@@ -1,6 +1,4 @@
 package Odev1;
-
-// Kullanıcıdan metin girişi alabilmek için Scanner sınıfını dahil ediyoruz.
 import java.util.Scanner;
 
 public class BasicCrypt {
