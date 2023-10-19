@@ -5,57 +5,52 @@ public class BasicCrypt {
 
     // Metni şifreleyen fonksiyon.
     public static String encrypt(String text) {
-        // Şifrelenmiş metni saklamak için boş bir string tanımlıyoruz.
-        String encryptedText = "";
+        // Şifrelenmiş metni saklamak için bir karakter dizisi (char array) oluşturuyoruz.
+        char[] encryptedText = new char[text.length()];
 
         // Metindeki her bir karakteri döngü ile geziyoruz.
         for (int i = 0; i < text.length(); i++) {
             // Şu anki karakteri alıyoruz.
             char charAtI = text.charAt(i);
-            // Bu karakterin ASCII değerine 3 ekleyerek basit bir şifreleme gerçekleştiriyoruz.
-            char encryptedChar = (char) (charAtI + 3);
-            // Şifrelenmiş karakteri sonuca ekliyoruz.
-            encryptedText += encryptedChar;
+            // Bu karakterin ASCII değerine, sırasının karesini ekleyerek basit bir şifreleme gerçekleştiriyoruz.
+            encryptedText[i] = (char) (charAtI + (i + 1) * (i + 1));
         }
 
         // Oluşturulan şifrelenmiş metni döndürüyoruz.
-        return encryptedText;
+        return new String(encryptedText);
     }
 
     // Şifrelenmiş metni deşifre eden fonksiyon.
     public static String decrypt(String encryptedText) {
-        // Deşifre edilmiş metni saklamak için boş bir string tanımlıyoruz.
-        String decryptedText = "";
+        // Deşifre edilmiş metni saklamak için bir karakter dizisi (char array) oluşturuyoruz.
+        char[] decryptedText = new char[encryptedText.length()];
 
         // Şifrelenmiş metindeki her bir karakteri döngü ile geziyoruz.
         for (int i = 0; i < encryptedText.length(); i++) {
             // Şu anki şifrelenmiş karakteri alıyoruz.
             char encryptedChar = encryptedText.charAt(i);
-            // Bu karakterin ASCII değerinden 3 çıkararak orijinal karakteri geri alıyoruz.
-            char decryptedChar = (char) (encryptedChar - 3);
-            // Deşifre edilmiş karakteri sonuca ekliyoruz.
-            decryptedText += decryptedChar;
+            // Orijinal karakteri geri almak için, şifrelenmiş karakterin ASCII değerinden sırasının karesini çıkarıyoruz.
+            decryptedText[i] = (char) (encryptedChar - (i + 1) * (i + 1));
         }
 
         // Oluşturulan deşifre edilmiş metni döndürüyoruz.
-        return decryptedText;
+        return new String(decryptedText);
     }
 
     // Ana fonksiyon.
     public static void main(String[] args) {
         // Kullanıcıdan metin girişi alabilmek için Scanner nesnesini oluşturuyoruz.
         Scanner scanner = new Scanner(System.in);
-        // Kullanıcıya metin girmesi için bir mesaj yazdırıyoruz.
         System.out.print("Lütfen şifrelemek istediğiniz metni girin: ");
         // Kullanıcının girdiği metni okuyoruz.
         String originalText = scanner.nextLine();
 
-        // Orijinal metni şifreleyerek şifrelenmiş metni elde ediyoruz.
+        // Orijinal metni şifreliyoruz.
         String encrypted = encrypt(originalText);
-        // Şifrelenmiş metni deşifre ederek orijinal metni geri alıyoruz.
+        // Şifrelenmiş metni deşifre ediyoruz.
         String decrypted = decrypt(encrypted);
 
-        // Orijinal metni, şifrelenmiş metni ve deşifre edilmiş metni ekrana yazdırıyoruz.
+        // Sonuçları ekrana yazdırıyoruz.
         System.out.println("Orijinal Metin: " + originalText);
         System.out.println("Şifrelenmiş Metin: " + encrypted);
         System.out.println("Deşifre Edilmiş Metin: " + decrypted);
