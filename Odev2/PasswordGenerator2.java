@@ -1,5 +1,5 @@
 package Odev2;
-//2. Karakterlerin Tekrar Edilebilmesi Durumu:
+//Karakterlerin Tekrar Edilebilmesi Durumu:
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.io.IOException;
 public class PasswordGenerator2 {
 
     public static void main(String[] args) throws IOException {
-        String characters = "123456";
-        int length = 4;
+        String characters = "aBdXagBH2X";
+        int length = 6;
 
         generateCombinations(characters, length);
     }
