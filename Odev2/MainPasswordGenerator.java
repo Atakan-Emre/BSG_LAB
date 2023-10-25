@@ -23,9 +23,9 @@ public class MainPasswordGenerator {
         String repeatResponse = scanner.nextLine().trim().toLowerCase();
 
         if (repeatResponse.equals("evet")) {
-            PasswordGenerator2.generateCombinations(characters, length);
+            PasswordGenerator2A.generateCombinations(characters, length);
         } else {
-            PasswordGenerator.generateCombinations(characters, length);
+            PasswordGeneratorA.generateCombinations(characters, length);
         }
 
         scanner.close();
