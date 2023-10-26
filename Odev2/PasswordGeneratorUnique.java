@@ -10,8 +10,8 @@ import java.util.Set;
 public class PasswordGeneratorUnique {  // Sınıf adı
 
     public static void main(String[] args) throws IOException {  // Ana metod
-        String characters = "aBdXagBH2X";  // Kullanılacak karakterler
-        int length = 6;  // Şifre uzunluğu
+        String characters = "arlkzthx";  // Kullanılacak karakterler
+        int length = 7;  // Şifre uzunluğu
 
         generateCombinations(characters, length);  // Metod çağrısı
     }

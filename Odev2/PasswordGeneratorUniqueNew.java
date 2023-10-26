@@ -10,7 +10,7 @@ public class PasswordGeneratorUniqueNew {
 
     public static void main(String[] args) throws IOException {
         // Kullanılabilir karakterleri ve şifre uzunluğunu tanımlayın
-        String availableCharacters = "arıkzthx";
+        String availableCharacters = "arlkzthx";
         int passwordLength = 7;
 
         // Şifreleri oluşturma işlemini başlatın
