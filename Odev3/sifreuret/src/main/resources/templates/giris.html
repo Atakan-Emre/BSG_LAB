@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Şifre Girişi</title>
+    <!-- Bootstrap stil dosyası -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        var interval;
+
+        function baslat() {
+            // Şifrenin ne zaman yenileneceğini belirten zaman damgasını al
+            var sifreYenilemeZamani = parseInt(document.getElementById('sifreYenilemeZamani').textContent, 10);
+            // Şu anki zamanı al
+            var simdikiZaman = new Date().getTime();
+            // Ne kadar süre kaldığını hesapla
+            var kalanZaman = sifreYenilemeZamani - simdikiZaman;
+            // Kalan süreyi saniye cinsine çevir
+            var timeLeft = Math.floor(kalanZaman / 1000);
+
+            // Sayaç güncelleme fonksiyonu
+            function updateCounter() {
+                document.getElementById('sayac').textContent = timeLeft + " saniye kaldı";
+                timeLeft--;
+                if (timeLeft < 0) {
+                    // Süre bittiğinde sayfayı yenile
+                    location.reload();
+                }
+            }
+
+            // Sayaçı her saniyede bir güncelle
+            interval = setInterval(updateCounter, 1000);
+        }
+
+        function kontrolEt() {
+            // Kullanıcının girdiği şifreyi al
+            var girilenSifre = document.getElementById('sifre').value;
+            // Sunucuya şifreyi kontrol etmek için POST isteği gönder
+            fetch('/kontrol', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'sifre=' + girilenSifre
+            })
+                .then(response => response.text())
+                .then(data => {
+                    // Sonucu ekranda göster
+                    document.getElementById('mesaj').textContent = data;
+                    if (data === "Giriş yaptınız!") {
+                        clearInterval(interval); // Doğru şifre girildiğinde sayacı durdur
+                    }
+                });
+            return false; // Formun sayfayı yeniden yüklemesini engelle
+        }
+    </script>
+</head>
+<body onload="baslat()" class="bg-light">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Şifre Girişi
+                </div>
+                <div class="card-body">
+                    <!-- Şifreyi ekranda göster -->
+                    <p class="card-text">Üretilen Şifre: <span th:text="${uretilenSifre}"></span></p>
+                    <!-- Kalan süreyi gösteren sayaç -->
+                    <p id="sayac" class="card-text"></p>
+                    <!-- Şifre giriş formu -->
+                    <form onsubmit="return kontrolEt();" class="form-inline">
+                        <label for="sifre" class="mr-2">Şifre:</label>
+                        <input type="text" id="sifre" name="sifre" required class="form-control mr-2">
+                        <input type="submit" value="Giriş Yap" class="btn btn-primary">
+                    </form>
+                    <!-- Giriş sonucunu gösteren alan -->
+                    <p id="mesaj" class="mt-3"></p>
+                    <!-- Şifreyi yeniden üretmek için buton -->
+                    <form action="/tekrar-dene" method="get">
+                        <input type="submit" value="Tekrar Dene" class="btn btn-warning mt-2">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Şifrenin ne zaman yenileneceğini belirten zaman damgasını saklamak için gizli bir alan -->
+    <span id="sifreYenilemeZamani" th:text="${sifreYenilemeZamani}" style="display:none;"></span>
+</div>
+</body>
+</html>
